@@ -1,0 +1,94 @@
+.todo-form {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.todo-form__input {
+  height: 58px;
+  border: 1px solid #f4f0e9;
+  background-color: #f9f7f4;
+  border-radius: 10px;
+  padding: 15px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  flex-grow: 1;
+}
+
+.todo-form__input::placeholder {
+  color: #a6a6a6;
+}
+
+.todo-form__input::-webkit-input-placeholder {
+  color: #a6a6a6;
+}
+
+.todo-form__input::-moz-placeholder {
+  color: #a6a6a6;
+}
+
+.todo-form__input::-ms-input-placeholder {
+  color: #a6a6a6;
+}
+
+.todo-form__input:hover {
+  background-color: #f4f0e9;
+}
+
+.todo-form__input:focus {
+  outline: 1px solid #a6a6a6;
+}
+
+.todo-form__button {
+  min-width: 200px;
+  min-height: 58px;
+  border: 0;
+  border-radius: 10px;
+  margin-left: 10px;
+  padding: 15px 30px;
+  background-color: #286562;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.todo-form__button:hover {
+  background-color: #3b7e7b;
+}
+
+.todo-form__button:active {
+  background-color: #627f7e;
+}
+
+@media screen and (max-width: 768px) {
+  .todo-form__button {
+    min-width: 134px;
+    min-height: 47px;
+    margin-right: 5px;
+    padding: 12px 29.5px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .todo-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .todo-form__input {
+    min-width: 320px;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 364px) {
+  .todo-form__input {
+    min-width: 286px;
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
