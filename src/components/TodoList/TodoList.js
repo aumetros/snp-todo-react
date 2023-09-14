@@ -1,8 +1,10 @@
 import "./TodoList.css";
+import Task from "../Task/Task";
 
 function TodoList() {
   return (
-    <ul class="todo-list">
+    <ul className="todo-list">
+      <Task />
 
     </ul>
   )
