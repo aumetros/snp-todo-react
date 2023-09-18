@@ -1,6 +1,6 @@
 import './Task.css';
 import { useDispatch } from 'react-redux';
-import { toggleTask } from '../../slices/tasksSlice';
+import { toggleTask, deleteTask } from '../../slices/tasksSlice';
 
 function Task({ task }) {
   const dispatch = useDispatch();
@@ -8,6 +8,11 @@ function Task({ task }) {
   function handleToggleTask() {
     dispatch(toggleTask(task.id));
   }
+
+  function handleDeleteTask() {
+    dispatch(deleteTask(task.id));
+  }
+
   return (
     <li className='todo-list__item'>
       <span
@@ -26,6 +31,7 @@ function Task({ task }) {
         className='todo-list__item-btn todo-list__item-btn_type_delete'
         type='button'
         title='Удалить'
+        onClick={handleDeleteTask}
       ></button>
     </li>
   );
