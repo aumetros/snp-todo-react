@@ -1,10 +1,10 @@
 import "./Task.css";
 
-function Task() {
+function Task({ task }) {
   return (
     <li className="todo-list__item">
       <span className="todo-list__item-check"></span>
-      <span className="todo-list__item-text">Тестовая задачка</span>
+      <span className="todo-list__item-text">{task.task}</span>
       <button
         className="todo-list__item-btn todo-list__item-btn_type_edit"
         type="button"
