@@ -1,19 +1,31 @@
-import "./Task.css";
+import './Task.css';
+import { useDispatch } from 'react-redux';
+import { toggleTask } from '../../slices/tasksSlice';
 
 function Task({ task }) {
+  const dispatch = useDispatch();
+
+  function handleToggleTask() {
+    dispatch(toggleTask(task.id));
+  }
   return (
-    <li className="todo-list__item">
-      <span className="todo-list__item-check"></span>
-      <span className="todo-list__item-text">{task.task}</span>
+    <li className='todo-list__item'>
+      <span
+        className={`todo-list__item-check ${
+          task.complete && 'todo-list__item-check_checked'
+        }`}
+        onClick={handleToggleTask}
+      ></span>
+      <span className='todo-list__item-text'>{task.task}</span>
       <button
-        className="todo-list__item-btn todo-list__item-btn_type_edit"
-        type="button"
-        title="Редактировать"
+        className='todo-list__item-btn todo-list__item-btn_type_edit'
+        type='button'
+        title='Редактировать'
       ></button>
       <button
-        className="todo-list__item-btn todo-list__item-btn_type_delete"
-        type="button"
-        title="Удалить"
+        className='todo-list__item-btn todo-list__item-btn_type_delete'
+        type='button'
+        title='Удалить'
       ></button>
     </li>
   );

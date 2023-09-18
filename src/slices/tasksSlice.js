@@ -9,9 +9,15 @@ const tasksSlice = createSlice({
     addTask(state, { payload }) {
       state.push(payload);
     },
+    toggleTask(state, { payload }) {
+      const task = state.find((task) => task.id === payload);
+      if (task) {
+        task.complete = !task.complete;
+      }
+    },
   },
 });
 
-export const { addTask } = tasksSlice.actions;
+export const { addTask, toggleTask } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

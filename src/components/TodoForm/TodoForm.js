@@ -14,6 +14,11 @@ function TodoForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (!inputValue) {
+      return;
+    }
+   
     const task = {
       id: nanoid(),
       task: inputValue,
@@ -21,6 +26,8 @@ function TodoForm() {
     };
 
     dispatch(addTask(task));
+
+    setInputValue('');
   }
 
   return (
@@ -32,7 +39,6 @@ function TodoForm() {
         onChange={handleChange}
         className='todo-form__input'
         placeholder='Добавьте следующее дело'
-        required
       />
       <button className='todo-form__button' type='submit'>
         Добавить
