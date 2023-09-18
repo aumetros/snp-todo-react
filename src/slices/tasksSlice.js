@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = [];
 
@@ -9,8 +9,8 @@ const tasksSlice = createSlice({
     addTask(state, action) {
       const { task } = action.payload;
       state.push(task);
-    }
-  }
+    },
+  },
 });
 
 export const { addTask } = tasksSlice.actions;
