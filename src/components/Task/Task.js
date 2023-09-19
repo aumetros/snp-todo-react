@@ -27,6 +27,10 @@ function Task({ task }) {
       return;
     }
 
+    if (taskRef.current.textContent === task.task) {
+      return;
+    }
+
     if (isDublicateTask()) {
       alert("Такое задание у вас уже есть!");
       taskRef.current.textContent = task.task;
