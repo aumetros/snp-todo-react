@@ -21,10 +21,17 @@ const tasksSlice = createSlice({
         state.splice(state.indexOf(task), 1);
       }
       
+    },
+    editTask(state, { payload }) {
+      const {taskId, text} = payload;
+      const task = state.find((task) => task.id === taskId);
+      if (task) {
+         task.task = text;
+      }
     }
   },
 });
 
-export const { addTask, toggleTask, deleteTask } = tasksSlice.actions;
+export const { addTask, toggleTask, deleteTask, editTask } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
