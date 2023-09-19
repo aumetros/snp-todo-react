@@ -2,10 +2,10 @@ import "./Todo.css";
 import TodoForm from "../TodoForm/TodoForm";
 import Navbar from "../Navbar/Navbar";
 
-function Todo() {
+function Todo({ main }) {
   return (
   <div className="todo">
-    <TodoForm />
+    <TodoForm main={main} />
     <Navbar />
   </div>
   )
