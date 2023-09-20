@@ -4,7 +4,8 @@ import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 
 function Navbar() {
-  const filter = useSelector((state) => state.filters)
+  const filter = useSelector((state) => state.filters);
+  const tasks = useSelector((state) => state.tasks);
   const [activeFilter, setActiveFilter] = React.useState(filter.status);
   const dispatch = useDispatch();
 
@@ -13,39 +14,53 @@ function Navbar() {
     setActiveFilter(e.target.id);
   }
 
+  function handleActiveCounter() {
+    return tasks.filter((task) => !task.complete).length;
+  }
+
+  function handleCompleteCounter() {
+    return tasks.filter((task) => task.complete).length;
+  }
+
   return (
     <div className="todo-navbar">
       <div className="todo-navbar__container">
         <div className="todo-counters">
           <span
             id="active"
-            className={`todo-counters__text ${activeFilter === 'active' && "todo-counters__text_focus"}`}
+            className={`todo-counters__text ${
+              activeFilter === "active" && "todo-counters__text_focus"
+            }`}
             onClick={handleFilters}
           >
             Активные:
           </span>
           <span className="todo-counters__counter todo-counters__counter_active">
-            0
+            {handleActiveCounter()}
           </span>
           <span
             id="complete"
-            className={`todo-counters__text ${activeFilter === 'complete' && "todo-counters__text_focus"}`}
+            className={`todo-counters__text ${
+              activeFilter === "complete" && "todo-counters__text_focus"
+            }`}
             onClick={handleFilters}
           >
             Завершенные:
           </span>
           <span className="todo-counters__counter todo-counters__counter_complete">
-            0
+            {handleCompleteCounter()}
           </span>
           <span
             id="all"
-            className={`todo-counters__text ${activeFilter === 'all' && "todo-counters__text_focus"}`}
+            className={`todo-counters__text ${
+              activeFilter === "all" && "todo-counters__text_focus"
+            }`}
             onClick={handleFilters}
           >
             Всего:
           </span>
           <span className="todo-counters__counter todo-counters__counter_all">
-            0
+            {tasks.length}
           </span>
         </div>
         <div className="todo-nabar__clear-list">
