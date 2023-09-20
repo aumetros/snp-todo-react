@@ -13,6 +13,7 @@
 
 .todo-counters__text {
   cursor: pointer;
+  margin-right: 5px;
 }
 
 .todo-counters__text_focus {
@@ -37,7 +38,7 @@
 }
 
 .todo-navbar__common:hover {
-  background-color: #F4F0E9;
+  background-color: #f4f0e9;
 }
 
 .todo-navbar__common-container {
@@ -45,10 +46,9 @@
   padding: 4px 10px;
   max-width: fit-content;
   transform: translate(-11px, 10px);
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 10px;
 }
-
 
 .todo-navbar__common_type_check {
   margin-right: 20px;
@@ -70,10 +70,11 @@
 
 .todo-navbar__common_type_disable {
   opacity: 0.3;
+  cursor: default;
 }
 
 .todo-navbar__clear {
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .todo-navbar__clear:last-of-type {
@@ -98,10 +99,8 @@
   text-underline-offset: 5px;
 }
 
-
-
 .todo-counters__counter {
-  margin-right: 20px;
+  margin-right: 17px;
 }
 
 .todo-counters__counter:last-of-type {
@@ -130,5 +129,3 @@
     font-size: 14px;
   }
 }
-
-

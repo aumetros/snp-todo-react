@@ -1,5 +1,11 @@
 import React from "react";
 import { setFilter } from "../../slices/filtersSlice";
+import {
+  clearCompleteTasks,
+  clearAllTasks,
+  checkAllTasks,
+  uncheckAllTasks,
+} from "../../slices/tasksSlice";
 import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -20,6 +26,34 @@ function Navbar() {
 
   function handleCompleteCounter() {
     return tasks.filter((task) => task.complete).length;
+  }
+
+  function handleClearCompleteTasks() {
+    dispatch(clearCompleteTasks());
+  }
+
+  function handleClearAllTasks() {
+    dispatch(clearAllTasks());
+  }
+
+  function handleCheckAllTasks() {
+    dispatch(checkAllTasks());
+  }
+
+  function handleUncheckAllTasks() {
+    dispatch(uncheckAllTasks())
+  }
+
+  function handleDisableCheckAll() {
+    return tasks.filter((task) => !task.complete).length > 0
+      ? "todo-navbar__common todo-navbar__common_type_check"
+      : "todo-navbar__common todo-navbar__common_type_check todo-navbar__common_type_disable";
+  }
+
+  function handleDisableUncheckAll() {
+    return tasks.filter((task) => task.complete).length > 0
+      ? "todo-navbar__common todo-navbar__common_type_uncheck"
+      : "todo-navbar__common todo-navbar__common_type_uncheck todo-navbar__common_type_disable";
   }
 
   return (
@@ -67,17 +101,23 @@ function Navbar() {
           <span className="todo-navbar__clear todo-navbar__clear_type_text">
             Очистить:
           </span>
-          <span className="todo-navbar__clear todo-navbar__clear_type_completed">
+          <span
+            className="todo-navbar__clear todo-navbar__clear_type_completed"
+            onClick={handleClearCompleteTasks}
+          >
             Завершенные
           </span>
-          <span className="todo-navbar__clear todo-navbar__clear_type_all">
+          <span
+            className="todo-navbar__clear todo-navbar__clear_type_all"
+            onClick={handleClearAllTasks}
+          >
             Весь список
           </span>
         </div>
       </div>
       <div className="todo-navbar__common-container">
-        <span className="todo-navbar__common todo-navbar__common_type_check"></span>
-        <span className="todo-navbar__common todo-navbar__common_type_uncheck"></span>
+        <span className={handleDisableCheckAll()} onClick={handleCheckAllTasks}></span>
+        <span className={handleDisableUncheckAll()} onClick={handleUncheckAllTasks}></span>
       </div>
     </div>
   );
