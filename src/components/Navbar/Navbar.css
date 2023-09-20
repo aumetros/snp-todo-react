@@ -11,12 +11,16 @@
   line-height: 20px;
 }
 
-.todo-navbar__item_focus {
+.todo-counters__text {
+  cursor: pointer;
+}
+
+.todo-counters__text_focus {
   text-decoration: underline;
   text-underline-offset: 5px;
 }
 
-.todo-navbar__item_focus {
+.todo-counters__text:hover {
   text-decoration: underline;
   text-underline-offset: 5px;
 }
@@ -94,14 +98,7 @@
   text-underline-offset: 5px;
 }
 
-.todo-counters__text {
-  cursor: pointer;
-}
 
-.todo-counters__text:hover {
-  text-decoration: underline;
-  text-underline-offset: 5px;
-}
 
 .todo-counters__counter {
   margin-right: 20px;
