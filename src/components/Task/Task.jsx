@@ -4,13 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleTask, deleteTask, editTask } from "../../slices/tasksSlice";
 
 function Task({ task }) {
+  const [isChecked, setIsChecked] = React.useState(false);
   const dispatch = useDispatch();
   const taskRef = React.useRef();
 
   const tasks = useSelector((state) => state.tasks);
 
   function handleToggleTask() {
-    dispatch(toggleTask(task.id));
+    setIsChecked(!isChecked);
+    setTimeout(() => {
+      dispatch(toggleTask(task.id));
+    }, 300);
   }
 
   function handleDeleteTask() {
@@ -40,6 +44,10 @@ function Task({ task }) {
     dispatch(editTask({ taskId: task.id, text: taskRef.current.textContent }));
   }
 
+  React.useEffect(() => {
+    setIsChecked(task.complete);
+  }, [task]);
+
   function handleBlurTask() {
     handleEditTask();
     taskRef.current.contentEditable = false;
@@ -68,7 +76,7 @@ function Task({ task }) {
     <li className="todo-list__item">
       <span
         className={`todo-list__item-check ${
-          task.complete && "todo-list__item-check_checked"
+          isChecked && "todo-list__item-check_checked"
         }`}
         onClick={handleToggleTask}
       ></span>
