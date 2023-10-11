@@ -1,0 +1,7 @@
+@import "./breakpoints.scss";
+
+@mixin xl {
+  @media (max-width: $breakpoint_xl) {
+    @content;
+  }
+}
