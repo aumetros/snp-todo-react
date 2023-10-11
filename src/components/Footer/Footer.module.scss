@@ -1,0 +1,15 @@
+@import "../../common/mixins.scss";
+
+.title {
+  max-width: 500px;
+  margin: 20px auto;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+
+  @include m {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
