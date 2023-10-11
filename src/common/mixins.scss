@@ -6,8 +6,20 @@
   }
 }
 
+@mixin l {
+  @media (max-width: $breakpoint_l) {
+    @content;
+  }
+}
+
 @mixin m {
   @media (max-width: $breakpoint_m) {
+    @content;
+  }
+}
+
+@mixin s {
+  @media (max-width: $breakpoint_s) {
     @content;
   }
 }
