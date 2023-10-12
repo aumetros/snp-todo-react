@@ -1,9 +1,9 @@
-import "./Footer.css";
+import styles from "./Footer.module.scss"
 
 function Footer() {
   return (
-    <footer className="footer">
-      <h2 className="footer__title">&copy; 2023. Алексей Шевляков</h2>
+    <footer>
+      <h2 className={styles.title}>&copy; 2023. Алексей Шевляков</h2>
     </footer>
   );
 }

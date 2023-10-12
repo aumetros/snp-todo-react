@@ -1,24 +1,22 @@
-.header__title {
+@import "../../common/mixins.scss";
+
+.title {
   max-width: 650px;
   margin: 40px auto;
   font-size: 88px;
   font-weight: 700;
   line-height: 98px;
   text-align: center;
-}
 
-@media screen and (max-width: 650px) {
-  .header__title {
+  @include l {
     margin: 20px auto;
     max-width: 365px;
     font-size: 66px;
     font-weight: 700;
     line-height: 70px;
   }
-}
 
-@media screen  and (max-width: 380px){
-  .header__title {
+  @include s {
     font-size: 56px;
   }
 }

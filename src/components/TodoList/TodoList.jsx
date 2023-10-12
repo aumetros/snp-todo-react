@@ -1,7 +1,7 @@
-import "./TodoList.css";
 import Task from "../Task/Task";
 import { useSelector } from "react-redux";
 import React from "react";
+import styles from "./TodoList.module.scss";
 
 function TodoList() {
   const [renderList, setRenderList] = React.useState([]);
@@ -21,7 +21,7 @@ function TodoList() {
   }, [filter, tasks]);
 
   return (
-    <ul className="todo-list">
+    <ul className={styles.root}>
       {renderList.map((task) => {
         return <Task key={task.id} task={task} />;
       })}

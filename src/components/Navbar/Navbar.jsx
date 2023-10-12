@@ -6,8 +6,8 @@ import {
   checkAllTasks,
   uncheckAllTasks,
 } from "../../slices/tasksSlice";
-import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
+import styles from "./Navbar.module.scss";
 
 function Navbar() {
   const filter = useSelector((state) => state.filters);
@@ -41,83 +41,89 @@ function Navbar() {
   }
 
   function handleUncheckAllTasks() {
-    dispatch(uncheckAllTasks())
+    dispatch(uncheckAllTasks());
   }
 
   function handleDisableCheckAll() {
     return tasks.filter((task) => !task.complete).length > 0
-      ? "todo-navbar__common todo-navbar__common_type_check"
-      : "todo-navbar__common todo-navbar__common_type_check todo-navbar__common_type_disable";
+      ? `${styles.common} ${styles['common_type_check']}`
+      : `${styles.common} ${styles['common_type_check']} ${styles['common_type_disable']}`;
   }
 
   function handleDisableUncheckAll() {
     return tasks.filter((task) => task.complete).length > 0
-      ? "todo-navbar__common todo-navbar__common_type_uncheck"
-      : "todo-navbar__common todo-navbar__common_type_uncheck todo-navbar__common_type_disable";
+      ? `${styles.common}`
+      : `${styles.common} ${styles['common_type_disable']}`;
   }
 
   return (
-    <div className="todo-navbar">
-      <div className="todo-navbar__container">
-        <div className="todo-counters">
+    <div className={styles.root}>
+      <div className={styles.container}>
+        <div className={styles.counters}>
           <span
             id="active"
-            className={`todo-counters__text ${
-              activeFilter === "active" && "todo-counters__text_focus"
+            className={`${styles.text} ${
+              activeFilter === "active" && styles.focus
             }`}
             onClick={handleFilters}
           >
             Активные:
           </span>
-          <span className="todo-counters__counter todo-counters__counter_active">
+          <span className={styles.counter}>
             {handleActiveCounter()}
           </span>
           <span
             id="complete"
-            className={`todo-counters__text ${
-              activeFilter === "complete" && "todo-counters__text_focus"
+            className={`${styles.text} ${
+              activeFilter === "complete" && styles.focus
             }`}
             onClick={handleFilters}
           >
             Завершенные:
           </span>
-          <span className="todo-counters__counter todo-counters__counter_complete">
+          <span className={styles.counter}>
             {handleCompleteCounter()}
           </span>
           <span
             id="all"
-            className={`todo-counters__text ${
-              activeFilter === "all" && "todo-counters__text_focus"
+            className={`${styles.text} ${
+              activeFilter === "all" && styles.focus
             }`}
             onClick={handleFilters}
           >
             Всего:
           </span>
-          <span className="todo-counters__counter todo-counters__counter_all">
+          <span className={styles.counter}>
             {tasks.length}
           </span>
         </div>
-        <div className="todo-nabar__clear-list">
-          <span className="todo-navbar__clear todo-navbar__clear_type_text">
+        <div>
+          <span className={styles.clear}>
             Очистить:
           </span>
           <span
-            className="todo-navbar__clear todo-navbar__clear_type_completed"
+            className={`${styles.clear} ${styles['clear_type_completed']}`}
             onClick={handleClearCompleteTasks}
           >
             Завершенные
           </span>
           <span
-            className="todo-navbar__clear todo-navbar__clear_type_all"
+            className={`${styles.clear} ${styles['clear_type_all']}`}
             onClick={handleClearAllTasks}
           >
             Весь список
           </span>
         </div>
       </div>
-      <div className="todo-navbar__common-container">
-        <span className={handleDisableCheckAll()} onClick={handleCheckAllTasks}></span>
-        <span className={handleDisableUncheckAll()} onClick={handleUncheckAllTasks}></span>
+      <div className={styles['common-container']}>
+        <span
+          className={handleDisableCheckAll()}
+          onClick={handleCheckAllTasks}
+        ></span>
+        <span
+          className={handleDisableUncheckAll()}
+          onClick={handleUncheckAllTasks}
+        ></span>
       </div>
     </div>
   );

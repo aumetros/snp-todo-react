@@ -1,9 +1,9 @@
-import "./TodoForm.css";
 import React from "react";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../../slices/tasksSlice";
 import { useOuterClick } from "../../hooks/useOuterClick";
+import styles from "./TodoForm.module.scss";
 
 function TodoForm({ main }) {
   const [inputValue, setInputValue] = React.useState("");
@@ -41,16 +41,16 @@ function TodoForm({ main }) {
   useOuterClick(main, addNewTask);
 
   return (
-    <form className="todo-form" onSubmit={handleSubmit}>
+    <form className={styles.root} onSubmit={handleSubmit}>
       <input
         type="text"
         name="todo"
         value={inputValue}
         onChange={handleChange}
-        className="todo-form__input"
+        className={styles.input}
         placeholder="Добавьте следующее дело"
       />
-      <button className="todo-form__button" type="submit">
+      <button className={styles.button} type="submit">
         Добавить
       </button>
     </form>

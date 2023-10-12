@@ -1,7 +1,7 @@
-import "./Task.css";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTask, deleteTask, editTask } from "../../slices/tasksSlice";
+import styles from "./Task.module.scss";
 
 function Task({ task }) {
   const [isChecked, setIsChecked] = React.useState(false);
@@ -73,30 +73,26 @@ function Task({ task }) {
   }
 
   return (
-    <li className="todo-list__item">
+    <li className={styles.root}>
       <span
-        className={`todo-list__item-check ${
-          isChecked && "todo-list__item-check_checked"
-        }`}
+        className={`${styles.check} ${isChecked && styles.checked}`}
         onClick={handleToggleTask}
       ></span>
       <span
-        className="todo-list__item-text"
+        className={styles.text}
         ref={taskRef}
         onDoubleClick={handleFocusTask}
       >
         {task.task}
       </span>
       <button
-        className="todo-list__item-btn todo-list__item-btn_type_edit"
+        className={`${styles.button} ${styles.edit}`}
         type="button"
-        title="Редактировать"
         onClick={handleFocusTask}
       ></button>
       <button
-        className="todo-list__item-btn todo-list__item-btn_type_delete"
+        className={`${styles.button} ${styles.delete}`}
         type="button"
-        title="Удалить"
         onClick={handleDeleteTask}
       ></button>
     </li>

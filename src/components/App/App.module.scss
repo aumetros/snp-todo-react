@@ -1,0 +1,15 @@
+@import "../../common/mixins.scss";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 900px;
+  margin: 0 auto;
+  color: #1b1f2b;
+  background-color: #f9f7f4;
+
+  @include xl {
+    padding: 0 10px;
+  }
+}
