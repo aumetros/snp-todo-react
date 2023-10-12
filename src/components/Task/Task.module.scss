@@ -1,0 +1,103 @@
+@import "../../common/mixins.scss";
+
+.root {
+  display: flex;
+  padding: 20px 40px;
+  margin-bottom: 5px;
+  border-radius: 15px;
+  box-sizing: border-box;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  background-color: #ffffff;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    background-color: #f4f0e9;
+  }
+
+  &:focus {
+    outline: 1px solid #a6a6a6;
+  }
+
+  @include m {
+    padding: 20px 10px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+.text {
+  margin: 0 10px;
+  flex-grow: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.check {
+  position: relative;
+  min-width: 28px;
+  min-height: 28px;
+  border: 2px solid black;
+  box-sizing: border-box;
+
+  &::after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 4px;
+    left: 8px;
+    width: 5px;
+    height: 10px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  &.checked::after {
+    display: block;
+
+    @include m {
+      top: 0px;
+      left: 5px;
+    }
+  }
+
+  @include m {
+    min-width: 20px;
+    min-height: 20px;
+  }
+}
+
+.button {
+  min-width: 28px;
+  min-height: 28px;
+  margin-right: 12px;
+  border: 0;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+
+  &.delete {
+    background-image: url(../../images/delete-ico.svg);
+  }
+
+  &.edit {
+    background-image: url(../../images/edit-ico.svg);
+  }
+
+  @include m {
+    min-width: 20px;
+    min-height: 20px;
+  }
+}
