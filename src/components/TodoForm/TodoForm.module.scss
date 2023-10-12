@@ -57,6 +57,8 @@
     font-size: 16px;
     line-height: 18px;
   }
+
+  @include hover;
 }
 
 .button {
@@ -87,4 +89,6 @@
     margin-right: 5px;
     padding: 12px 29.5px;
   }
+
+  @include hover;
 }

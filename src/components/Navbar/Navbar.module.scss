@@ -41,6 +41,8 @@
     text-decoration: underline;
     text-underline-offset: 5px;
   }
+
+  @include hover;
 }
 
 .common {
@@ -56,6 +58,8 @@
   &:hover {
     background-color: #f4f0e9;
   }
+
+  @include hover;
 }
 
 .common-container {
@@ -109,6 +113,8 @@
     text-decoration: underline;
     text-underline-offset: 5px;
   }
+
+  @include hover;
 }
 
 .clear_type_completed {
@@ -118,6 +124,8 @@
     text-decoration: underline;
     text-underline-offset: 5px;
   }
+
+  @include hover;
 }
 
 .counter {
