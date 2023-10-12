@@ -1,0 +1,90 @@
+@import "../../common/mixins.scss";
+
+.root {
+  display: flex;
+  margin-bottom: 20px;
+
+  @include m {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.input {
+  flex-grow: 1;
+  height: 58px;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid #f4f0e9;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  background-color: #f9f7f4;
+  cursor: pointer;
+
+  &::-webkit-input-placeholder {
+    color: #a6a6a6;
+  }
+
+  &::-moz-placeholder {
+    color: #a6a6a6;
+  }
+
+  &::-ms-input-placeholder {
+    color: #a6a6a6;
+  }
+
+  &::placeholder {
+    color: #a6a6a6;
+  }
+
+  &:hover {
+    background-color: #f4f0e9;
+  }
+
+  &:focus {
+    outline: 1px solid #a6a6a6;
+  }
+
+  @include m {
+    min-width: 320px;
+    margin-bottom: 10px;
+  }
+
+  @include s {
+    min-width: 286px;
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
+
+.button {
+  min-width: 200px;
+  min-height: 58px;
+  margin-left: 10px;
+  padding: 15px 30px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  background-color: #286562;
+  color: #ffffff;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #3b7e7b;
+  }
+
+  &:active {
+    background-color: #627f7e;
+  }
+
+  @include xl {
+    min-width: 134px;
+    min-height: 47px;
+    margin-right: 5px;
+    padding: 12px 29.5px;
+  }
+}
