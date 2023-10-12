@@ -88,13 +88,11 @@ function Task({ task }) {
       <button
         className={`${styles.button} ${styles.edit}`}
         type="button"
-        title="Редактировать"
         onClick={handleFocusTask}
       ></button>
       <button
         className={`${styles.button} ${styles.delete}`}
         type="button"
-        title="Удалить"
         onClick={handleDeleteTask}
       ></button>
     </li>
