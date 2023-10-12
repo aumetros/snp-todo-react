@@ -1,10 +1,10 @@
-import "./Todo.css";
 import TodoForm from "../TodoForm/TodoForm";
 import Navbar from "../Navbar/Navbar";
+import styles from "./Todo.module.scss";
 
 function Todo({ main }) {
   return (
-  <div className="todo">
+  <div className={styles.root}>
     <TodoForm main={main} />
     <Navbar />
   </div>

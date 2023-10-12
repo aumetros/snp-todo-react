@@ -1,0 +1,13 @@
+@import "../../common/mixins.scss";
+
+.root {
+  margin-bottom: 15px;
+  padding: 40px 40px 0px;
+  border-radius: 30px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+
+  @include m {
+    padding: 30px 10px 0px;
+  }
+}
