@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/snp-todo-react/static/css/main.ce08d731.css",
+    "main.css": "/snp-todo-react/static/css/main.d297c555.css",
     "main.js": "/snp-todo-react/static/js/main.b4786950.js",
     "static/js/787.506a89f6.chunk.js": "/snp-todo-react/static/js/787.506a89f6.chunk.js",
     "static/media/Roboto-Regular.ttf": "/snp-todo-react/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
@@ -8,12 +8,12 @@
     "static/media/edit-ico.svg": "/snp-todo-react/static/media/edit-ico.589662b69c720ae7aaae.svg",
     "index.html": "/snp-todo-react/index.html",
     "static/media/delete-ico.svg": "/snp-todo-react/static/media/delete-ico.267183f8704e4d630fcc.svg",
-    "main.ce08d731.css.map": "/snp-todo-react/static/css/main.ce08d731.css.map",
+    "main.d297c555.css.map": "/snp-todo-react/static/css/main.d297c555.css.map",
     "main.b4786950.js.map": "/snp-todo-react/static/js/main.b4786950.js.map",
     "787.506a89f6.chunk.js.map": "/snp-todo-react/static/js/787.506a89f6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ce08d731.css",
+    "static/css/main.d297c555.css",
     "static/js/main.b4786950.js"
   ]
 }
