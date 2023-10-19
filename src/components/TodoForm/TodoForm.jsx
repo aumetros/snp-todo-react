@@ -2,7 +2,6 @@ import React from "react";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../../slices/tasksSlice";
-import { useOuterClick } from "../../hooks/useOuterClick";
 import styles from "./TodoForm.module.scss";
 
 function TodoForm({ main }) {
@@ -14,13 +13,9 @@ function TodoForm({ main }) {
     setInputValue(e.target.value);
   }
 
-  function isDublicateTask() {
-    return tasks.some((task) => task.task === inputValue);
-  }
-
-  function addNewTask() {
+  const addNewTask = React.useCallback(() => {
     if (!inputValue) return;
-    if (isDublicateTask()) {
+    if (tasks.some((task) => task.task === inputValue)) {
       alert("Такое задание у вас уже есть!");
       return;
     }
@@ -31,14 +26,26 @@ function TodoForm({ main }) {
     };
     dispatch(addTask(task));
     setInputValue("");
-  }
+  }, [dispatch, inputValue, tasks]);
 
   function handleSubmit(e) {
     e.preventDefault();
     addNewTask();
   }
 
-  useOuterClick(main, addNewTask);
+  React.useEffect(() => {
+    const handleClick = (e) => {
+      if (!main.current.contains(e.target)) {
+        addNewTask();
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, [main, addNewTask]);
 
   return (
     <form className={styles.root} onSubmit={handleSubmit}>
