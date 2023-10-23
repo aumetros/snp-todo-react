@@ -91,11 +91,11 @@
   cursor: pointer;
 
   &.delete {
-    background-image: url(../../images/delete-ico.svg);
+    background-image: url(/images/delete-ico.svg);
   }
 
   &.edit {
-    background-image: url(../../images/edit-ico.svg);
+    background-image: url(/images/edit-ico.svg);
   }
 
   &:hover {
