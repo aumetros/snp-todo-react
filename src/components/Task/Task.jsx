@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTask, deleteTask, editTask } from "../../slices/tasksSlice";
+import { toggleTask, deleteTask, editTask } from "slices/tasksSlice";
 import styles from "./Task.module.scss";
 
 function Task({ task }) {

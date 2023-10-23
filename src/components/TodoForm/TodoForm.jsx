@@ -1,7 +1,7 @@
 import React from "react";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "../../slices/tasksSlice";
+import { addTask } from "slices/tasksSlice";
 import styles from "./TodoForm.module.scss";
 
 function TodoForm({ main }) {

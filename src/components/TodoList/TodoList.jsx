@@ -1,4 +1,4 @@
-import Task from "../Task/Task";
+import Task from "components/Task";
 import { useSelector } from "react-redux";
 import React from "react";
 import styles from "./TodoList.module.scss";

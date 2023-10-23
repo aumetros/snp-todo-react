@@ -4,7 +4,7 @@ import filterReducer from "./filtersSlice.js";
 import {
   localStorageMiddleware,
   preLoadStore,
-} from "../middlewares/localStorageMiddleware.js";
+} from "middlewares/localStorageMiddleware.js";
 
 export default configureStore({
   reducer: {

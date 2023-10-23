@@ -1,11 +1,11 @@
 import React from "react";
-import { setFilter } from "../../slices/filtersSlice";
+import { setFilter } from "slices/filtersSlice";
 import {
   clearCompleteTasks,
   clearAllTasks,
   checkAllTasks,
   uncheckAllTasks,
-} from "../../slices/tasksSlice";
+} from "slices/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Navbar.module.scss";
 

@@ -1,6 +1,6 @@
 import Header from "components/Header";
-import Main from "../Main/Main";
-import Footer from "../Footer/Footer";
+import Main from "components/Main";
+import Footer from "components/Footer";
 import styles from "./App.module.scss";
 
 function App() {
