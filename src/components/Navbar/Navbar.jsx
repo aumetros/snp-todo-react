@@ -12,12 +12,10 @@ import styles from "./Navbar.module.scss";
 function Navbar() {
   const filter = useSelector((state) => state.filters);
   const tasks = useSelector((state) => state.tasks);
-  const [activeFilter, setActiveFilter] = React.useState(filter.status);
   const dispatch = useDispatch();
 
   function handleFilters(e) {
     dispatch(setFilter(e.target.id));
-    setActiveFilter(e.target.id);
   }
 
   function handleActiveCounter() {
@@ -63,7 +61,7 @@ function Navbar() {
           <span
             id="active"
             className={`${styles.text} ${
-              activeFilter === "active" && styles.focus
+              filter.status === "active" && styles.focus
             }`}
             onClick={handleFilters}
           >
@@ -75,7 +73,7 @@ function Navbar() {
           <span
             id="complete"
             className={`${styles.text} ${
-              activeFilter === "complete" && styles.focus
+              filter.status === "complete" && styles.focus
             }`}
             onClick={handleFilters}
           >
@@ -87,7 +85,7 @@ function Navbar() {
           <span
             id="all"
             className={`${styles.text} ${
-              activeFilter === "all" && styles.focus
+              filter.status === "all" && styles.focus
             }`}
             onClick={handleFilters}
           >
