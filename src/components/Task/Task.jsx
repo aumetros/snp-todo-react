@@ -5,8 +5,10 @@ import styles from "./Task.module.scss";
 
 function Task({ task }) {
   const [isChecked, setIsChecked] = React.useState(false);
+  const [isReadOnly, setIsReadOnly] = React.useState("readonly");
+  const [title, setTitle] = React.useState(task.task);
   const dispatch = useDispatch();
-  const taskRef = React.useRef();
+  // const taskRef = React.useRef();
 
   const tasks = useSelector((state) => state.tasks);
 
@@ -21,55 +23,65 @@ function Task({ task }) {
     dispatch(deleteTask(task.id));
   }
 
-  function isDublicateTask() {
-    return tasks.some((task) => task.task === taskRef.current.textContent);
-  }
-
-  function handleEditTask() {
-    if (!taskRef.current.textContent) {
-      taskRef.current.textContent = task.task;
-      return;
-    }
-
-    if (taskRef.current.textContent === task.task) {
-      return;
-    }
-
-    if (isDublicateTask()) {
-      alert("Такое задание у вас уже есть!");
-      taskRef.current.textContent = task.task;
-      return;
-    }
-
-    dispatch(editTask({ taskId: task.id, text: taskRef.current.textContent }));
-  }
+  const isDublicateTask = React.useMemo(() => {
+    return tasks.some((task) => task.task === title);
+  }, [tasks, title]);
 
   React.useEffect(() => {
     setIsChecked(task.complete);
   }, [task]);
 
-  function handleBlurTask() {
-    handleEditTask();
-    taskRef.current.contentEditable = false;
-    taskRef.current.removeEventListener("blur", handleBlurTask);
-    taskRef.current.removeEventListener("keypress", handleEnterPress);
+  // function handleFocusTask() {
+  //   taskRef.current.contentEditable = true;
+  //   taskRef.current.focus();
+  //   taskRef.current.addEventListener("blur", handleBlurTask);
+  //   taskRef.current.addEventListener("keypress", handleEnterPress);
+  // }
+
+  function handleChange(e) {
+    setTitle(e.target.value);
+  }
+
+  function handleEditTask(value) {
+    if (!value) {
+      setTitle(task.task);
+      return;
+    }
+
+    if (value === task.task) {
+      return;
+    }
+
+    if (isDublicateTask) {
+      alert("Такое задание у вас уже есть!");
+      setTitle(task.task);
+      return;
+    }
+
+    dispatch(editTask({ taskId: task.id, text: value }));
+  }
+
+  function handleBlurTask(e) {
+    handleEditTask(e.target.value);
+    setIsReadOnly("readonly");
+    e.target.removeEventListener("blur", handleBlurTask);
+    e.target.removeEventListener("keypress", handleEnterPress);
   }
 
   function handleEnterPress(e) {
     if (e.key === "Enter") {
       e.preventDefault();
-      taskRef.current.removeEventListener("blur", handleBlurTask);
-      handleEditTask();
-      taskRef.current.contentEditable = false;
-      taskRef.current.removeEventListener("keypress", handleEnterPress);
+      e.target.removeEventListener("blur", handleBlurTask);
+      handleEditTask(e.target.value);
+      setIsReadOnly("readonly");
+      e.target.removeEventListener("keypress", handleEnterPress);
     }
   }
 
-  function handleFocusTask() {
-    taskRef.current.contentEditable = true;
-    taskRef.current.focus();
-    taskRef.current.addEventListener("blur", handleBlurTask);
-    taskRef.current.addEventListener("keypress", handleEnterPress);
+  function handleEditTask1(e) {
+    setIsReadOnly(false);
+    e.target.addEventListener("blur", handleBlurTask);
+    e.target.addEventListener("keypress", handleEnterPress);
   }
 
   return (
@@ -78,17 +90,19 @@ function Task({ task }) {
         className={`${styles.check} ${isChecked && styles.checked}`}
         onClick={handleToggleTask}
       ></span>
-      <span
+      <input
+        type="text"
         className={styles.text}
-        ref={taskRef}
-        onDoubleClick={handleFocusTask}
-      >
-        {task.task}
-      </span>
+        name={task.id}
+        value={title}
+        onChange={handleChange}
+        onDoubleClick={handleEditTask1}
+        readOnly={isReadOnly}
+      />
       <button
         className={`${styles.button} ${styles.edit}`}
         type="button"
-        onClick={handleFocusTask}
+        // onClick={handleFocusTask}
       ></button>
       <button
         className={`${styles.button} ${styles.delete}`}
