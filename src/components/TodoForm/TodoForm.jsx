@@ -9,13 +9,17 @@ function TodoForm({ main }) {
   const tasks = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
 
+  const isDublicateTask = React.useMemo(() => {
+    return tasks.some((task) => task.task === inputValue);
+  }, [tasks, inputValue]);
+
   function handleChange(e) {
     setInputValue(e.target.value);
   }
 
   const addNewTask = React.useCallback(() => {
     if (!inputValue) return;
-    if (tasks.some((task) => task.task === inputValue)) {
+    if (isDublicateTask) {
       alert("Такое задание у вас уже есть!");
       return;
     }
@@ -26,7 +30,7 @@ function TodoForm({ main }) {
     };
     dispatch(addTask(task));
     setInputValue("");
-  }, [dispatch, inputValue, tasks]);
+  }, [dispatch, inputValue, isDublicateTask]);
 
   function handleSubmit(e) {
     e.preventDefault();
