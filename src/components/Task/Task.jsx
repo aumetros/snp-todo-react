@@ -1,16 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTask, deleteTask, editTask } from "slices/tasksSlice";
+import TaskTitle from "components/TaskTitle";
 import styles from "./Task.module.scss";
 
 function Task({ task }) {
   const [isChecked, setIsChecked] = React.useState(false);
-  const [isReadOnly, setIsReadOnly] = React.useState("readonly");
+  const [isEdit, setIsEdit] = React.useState(false);
   const [title, setTitle] = React.useState(task.task);
   const dispatch = useDispatch();
-  // const taskRef = React.useRef();
 
   const tasks = useSelector((state) => state.tasks);
+
+  const isDublicateTask = React.useMemo(() => {
+    return tasks.some((task) => task.task === title);
+  }, [tasks, title]);
 
   function handleToggleTask() {
     setIsChecked(!isChecked);
@@ -23,32 +27,13 @@ function Task({ task }) {
     dispatch(deleteTask(task.id));
   }
 
-  const isDublicateTask = React.useMemo(() => {
-    return tasks.some((task) => task.task === title);
-  }, [tasks, title]);
-
-  React.useEffect(() => {
-    setIsChecked(task.complete);
-  }, [task]);
-
-  // function handleFocusTask() {
-  //   taskRef.current.contentEditable = true;
-  //   taskRef.current.focus();
-  //   taskRef.current.addEventListener("blur", handleBlurTask);
-  //   taskRef.current.addEventListener("keypress", handleEnterPress);
-  // }
-
-  function handleChange(e) {
-    setTitle(e.target.value);
-  }
-
-  function handleEditTask(value) {
-    if (!value) {
+  function handleEditTask() {
+    if (!title) {
       setTitle(task.task);
       return;
     }
 
-    if (value === task.task) {
+    if (title === task.task) {
       return;
     }
 
@@ -58,31 +43,37 @@ function Task({ task }) {
       return;
     }
 
-    dispatch(editTask({ taskId: task.id, text: value }));
+    dispatch(editTask({ taskId: task.id, text: title }));
   }
 
-  function handleBlurTask(e) {
-    handleEditTask(e.target.value);
-    setIsReadOnly("readonly");
-    e.target.removeEventListener("blur", handleBlurTask);
-    e.target.removeEventListener("keypress", handleEnterPress);
+  function handleEditClick() {
+    setIsEdit(true);
+  }
+
+  function handleDoubleClick() {
+    setIsEdit(true);
+  }
+
+  function handleChange(e) {
+    setTitle(e.target.value);
   }
 
   function handleEnterPress(e) {
     if (e.key === "Enter") {
       e.preventDefault();
-      e.target.removeEventListener("blur", handleBlurTask);
-      handleEditTask(e.target.value);
-      setIsReadOnly("readonly");
-      e.target.removeEventListener("keypress", handleEnterPress);
+      handleEditTask();
+      setIsEdit(false);
     }
   }
 
-  function handleEditTask1(e) {
-    setIsReadOnly(false);
-    e.target.addEventListener("blur", handleBlurTask);
-    e.target.addEventListener("keypress", handleEnterPress);
+  function handleBlur() {
+    handleEditTask();
+    setIsEdit(false);
   }
+
+  React.useEffect(() => {
+    setIsChecked(task.complete);
+  }, [task]);
 
   return (
     <li className={styles.root}>
@@ -90,19 +81,18 @@ function Task({ task }) {
         className={`${styles.check} ${isChecked && styles.checked}`}
         onClick={handleToggleTask}
       ></span>
-      <input
-        type="text"
-        className={styles.text}
-        name={task.id}
-        value={title}
+      <TaskTitle
+        isEdit={isEdit}
+        title={title}
+        onDoubleClick={handleDoubleClick}
         onChange={handleChange}
-        onDoubleClick={handleEditTask1}
-        readOnly={isReadOnly}
+        onEnter={handleEnterPress}
+        onBlur={handleBlur}
       />
       <button
         className={`${styles.button} ${styles.edit}`}
         type="button"
-        // onClick={handleFocusTask}
+        onClick={handleEditClick}
       ></button>
       <button
         className={`${styles.button} ${styles.delete}`}
