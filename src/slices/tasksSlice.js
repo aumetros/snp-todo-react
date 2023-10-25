@@ -10,23 +10,31 @@ const tasksSlice = createSlice({
       state.push(payload);
     },
     toggleTask(state, { payload }) {
-      const task = state.find((task) => task.id === payload);
-      if (task) {
-        task.complete = !task.complete;
-      }
+      return state.map((task) => {
+        if (task.id === payload) {
+          return {
+            ...task,
+            complete: !task.complete,
+          };
+        }
+
+        return task;
+      });
     },
     deleteTask(state, { payload }) {
-      const task = state.find((task) => task.id === payload);
-      if (task) {
-        state.splice(state.indexOf(task), 1);
-      }
+      return state.filter((task) => task.id !== payload);
     },
     editTask(state, { payload }) {
       const { taskId, text } = payload;
-      const task = state.find((task) => task.id === taskId);
-      if (task) {
-        task.task = text;
-      }
+      return state.map((task) => {
+        if (task.id === taskId) {
+          return {
+            ...task,
+            title: text,
+          };
+        }
+        return task;
+      });
     },
     clearCompleteTasks(state) {
       return state.filter((task) => task.complete !== true);
@@ -35,10 +43,20 @@ const tasksSlice = createSlice({
       state.splice(0, state.length);
     },
     checkAllTasks(state) {
-      state.forEach((task) => task.complete = true);
+      return state.map((task) => {
+        return {
+          ...task,
+          complete: true,
+        };
+      });
     },
     uncheckAllTasks(state) {
-      state.forEach((task) => task.complete = false);
+      return state.map((task) => {
+        return {
+          ...task,
+          complete: false,
+        };
+      });
     },
   },
 });

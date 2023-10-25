@@ -1,4 +1,4 @@
-@import "../../styles/mixins.scss";
+@import "styles/mixins.scss";
 
 .root {
   display: flex;
@@ -32,14 +32,6 @@
   }
 
   @include hover;
-}
-
-.text {
-  margin: 0 10px;
-  flex-grow: 1;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  cursor: pointer;
 }
 
 .check {
@@ -91,11 +83,11 @@
   cursor: pointer;
 
   &.delete {
-    background-image: url(../../images/delete-ico.svg);
+    background-image: url(/images/delete-ico.svg);
   }
 
   &.edit {
-    background-image: url(../../images/edit-ico.svg);
+    background-image: url(/images/edit-ico.svg);
   }
 
   &:hover {

@@ -1,14 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTask, deleteTask, editTask } from "../../slices/tasksSlice";
+import { toggleTask, deleteTask, editTask } from "slices/tasksSlice";
+import TaskTitle from "components/TaskTitle";
 import styles from "./Task.module.scss";
 
 function Task({ task }) {
   const [isChecked, setIsChecked] = React.useState(false);
+  const [isEdit, setIsEdit] = React.useState(false);
+  const [title, setTitle] = React.useState(task.title);
   const dispatch = useDispatch();
-  const taskRef = React.useRef();
 
   const tasks = useSelector((state) => state.tasks);
+
+  const isDublicateTask = React.useMemo(() => {
+    return tasks.some((task) => task.title === title);
+  }, [tasks, title]);
 
   function handleToggleTask() {
     setIsChecked(!isChecked);
@@ -21,56 +27,50 @@ function Task({ task }) {
     dispatch(deleteTask(task.id));
   }
 
-  function isDublicateTask() {
-    return tasks.some((task) => task.task === taskRef.current.textContent);
-  }
-
   function handleEditTask() {
-    if (!taskRef.current.textContent) {
-      taskRef.current.textContent = task.task;
+    if (!title) {
+      setTitle(task.title);
       return;
     }
-
-    if (taskRef.current.textContent === task.task) {
+    if (title === task.title) {
       return;
     }
-
-    if (isDublicateTask()) {
+    if (isDublicateTask) {
       alert("Такое задание у вас уже есть!");
-      taskRef.current.textContent = task.task;
+      setTitle(task.title);
       return;
     }
-
-    dispatch(editTask({ taskId: task.id, text: taskRef.current.textContent }));
+    dispatch(editTask({ taskId: task.id, text: title }));
   }
 
-  React.useEffect(() => {
-    setIsChecked(task.complete);
-  }, [task]);
+  function handleEditClick() {
+    setIsEdit(true);
+  }
 
-  function handleBlurTask() {
-    handleEditTask();
-    taskRef.current.contentEditable = false;
-    taskRef.current.removeEventListener("blur", handleBlurTask);
-    taskRef.current.removeEventListener("keypress", handleEnterPress);
+  function handleDoubleClick() {
+    setIsEdit(true);
+  }
+
+  function handleChange(e) {
+    setTitle(e.target.value);
   }
 
   function handleEnterPress(e) {
     if (e.key === "Enter") {
       e.preventDefault();
-      taskRef.current.removeEventListener("blur", handleBlurTask);
       handleEditTask();
-      taskRef.current.contentEditable = false;
-      taskRef.current.removeEventListener("keypress", handleEnterPress);
+      setIsEdit(false);
     }
   }
 
-  function handleFocusTask() {
-    taskRef.current.contentEditable = true;
-    taskRef.current.focus();
-    taskRef.current.addEventListener("blur", handleBlurTask);
-    taskRef.current.addEventListener("keypress", handleEnterPress);
+  function handleBlur() {
+    handleEditTask();
+    setIsEdit(false);
   }
+
+  React.useEffect(() => {
+    setIsChecked(task.complete);
+  }, [task]);
 
   return (
     <li className={styles.root}>
@@ -78,17 +78,18 @@ function Task({ task }) {
         className={`${styles.check} ${isChecked && styles.checked}`}
         onClick={handleToggleTask}
       ></span>
-      <span
-        className={styles.text}
-        ref={taskRef}
-        onDoubleClick={handleFocusTask}
-      >
-        {task.task}
-      </span>
+      <TaskTitle
+        isEdit={isEdit}
+        title={title}
+        onDoubleClick={handleDoubleClick}
+        onChange={handleChange}
+        onEnter={handleEnterPress}
+        onBlur={handleBlur}
+      />
       <button
         className={`${styles.button} ${styles.edit}`}
         type="button"
-        onClick={handleFocusTask}
+        onClick={handleEditClick}
       ></button>
       <button
         className={`${styles.button} ${styles.delete}`}

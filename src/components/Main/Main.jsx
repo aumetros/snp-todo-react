@@ -1,5 +1,5 @@
-import Todo from "../Todo/Todo";
-import TodoList from "../TodoList/TodoList";
+import Todo from "components/Todo";
+import TodoList from "components/TodoList";
 import React from "react";
 import styles from "./Main.module.scss";
 

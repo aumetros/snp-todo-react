@@ -1,5 +1,5 @@
-import TodoForm from "../TodoForm/TodoForm";
-import Navbar from "../Navbar/Navbar";
+import TodoForm from "components/TodoForm";
+import Navbar from "components/Navbar";
 import styles from "./Todo.module.scss";
 
 function Todo({ main }) {

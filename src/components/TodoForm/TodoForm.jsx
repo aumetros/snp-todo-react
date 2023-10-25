@@ -1,7 +1,7 @@
 import React from "react";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "../../slices/tasksSlice";
+import { addTask } from "slices/tasksSlice";
 import styles from "./TodoForm.module.scss";
 
 function TodoForm({ main }) {
@@ -9,24 +9,28 @@ function TodoForm({ main }) {
   const tasks = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
 
+  const isDublicateTask = React.useMemo(() => {
+    return tasks.some((task) => task.title === inputValue);
+  }, [tasks, inputValue]);
+
   function handleChange(e) {
     setInputValue(e.target.value);
   }
 
   const addNewTask = React.useCallback(() => {
     if (!inputValue) return;
-    if (tasks.some((task) => task.task === inputValue)) {
+    if (isDublicateTask) {
       alert("Такое задание у вас уже есть!");
       return;
     }
     const task = {
       id: nanoid(),
-      task: inputValue,
+      title: inputValue,
       complete: false,
     };
     dispatch(addTask(task));
     setInputValue("");
-  }, [dispatch, inputValue, tasks]);
+  }, [dispatch, inputValue, isDublicateTask]);
 
   function handleSubmit(e) {
     e.preventDefault();
