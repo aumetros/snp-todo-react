@@ -7,13 +7,13 @@ import styles from "./Task.module.scss";
 function Task({ task }) {
   const [isChecked, setIsChecked] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
-  const [title, setTitle] = React.useState(task.task);
+  const [title, setTitle] = React.useState(task.title);
   const dispatch = useDispatch();
 
   const tasks = useSelector((state) => state.tasks);
 
   const isDublicateTask = React.useMemo(() => {
-    return tasks.some((task) => task.task === title);
+    return tasks.some((task) => task.title === title);
   }, [tasks, title]);
 
   function handleToggleTask() {
@@ -29,15 +29,15 @@ function Task({ task }) {
 
   function handleEditTask() {
     if (!title) {
-      setTitle(task.task);
+      setTitle(task.title);
       return;
     }
-    if (title === task.task) {
+    if (title === task.title) {
       return;
     }
     if (isDublicateTask) {
       alert("Такое задание у вас уже есть!");
-      setTitle(task.task);
+      setTitle(task.title);
       return;
     }
     dispatch(editTask({ taskId: task.id, text: title }));

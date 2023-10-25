@@ -25,7 +25,7 @@ const tasksSlice = createSlice({
       const { taskId, text } = payload;
       const task = state.find((task) => task.id === taskId);
       if (task) {
-        task.task = text;
+        task.title = text;
       }
     },
     clearCompleteTasks(state) {

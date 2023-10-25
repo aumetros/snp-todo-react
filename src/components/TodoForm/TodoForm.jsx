@@ -10,7 +10,7 @@ function TodoForm({ main }) {
   const dispatch = useDispatch();
 
   const isDublicateTask = React.useMemo(() => {
-    return tasks.some((task) => task.task === inputValue);
+    return tasks.some((task) => task.title === inputValue);
   }, [tasks, inputValue]);
 
   function handleChange(e) {
@@ -25,7 +25,7 @@ function TodoForm({ main }) {
     }
     const task = {
       id: nanoid(),
-      task: inputValue,
+      title: inputValue,
       complete: false,
     };
     dispatch(addTask(task));
