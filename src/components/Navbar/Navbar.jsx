@@ -19,13 +19,17 @@ function Navbar() {
     dispatch(setFilter(e.target.id));
   }
 
-  function handleActiveCounter() {
-    return tasks.filter((task) => !task.complete).length;
-  }
+  const activeTasks = React.useMemo(
+    () => tasks.filter((task) => !task.complete).length,
+    [tasks]
+  );
 
-  function handleCompleteCounter() {
-    return tasks.filter((task) => task.complete).length;
-  }
+  const completeTasks = React.useMemo(
+    () => tasks.filter((task) => task.complete).length,
+    [tasks]
+  );
+
+  const allTasks = React.useMemo(() => tasks.length, [tasks]);
 
   function handleClearCompleteTasks() {
     dispatch(clearCompleteTasks());
@@ -44,13 +48,13 @@ function Navbar() {
   }
 
   function handleDisableCheckAll() {
-    return tasks.filter((task) => !task.complete).length > 0
+    return activeTasks > 0
       ? `${styles.common} ${styles["common_type_check"]}`
       : `${styles.common} ${styles["common_type_check"]} ${styles["common_type_disable"]}`;
   }
 
   function handleDisableUncheckAll() {
-    return tasks.filter((task) => task.complete).length > 0
+    return completeTasks > 0
       ? `${styles.common}`
       : `${styles.common} ${styles["common_type_disable"]}`;
   }
@@ -68,7 +72,7 @@ function Navbar() {
           >
             Активные:
           </span>
-          <span className={styles.counter}>{handleActiveCounter()}</span>
+          <span className={styles.counter}>{activeTasks}</span>
           <span
             id={FILTER_COMPLETE}
             className={`${styles.text} ${
@@ -78,7 +82,7 @@ function Navbar() {
           >
             Завершенные:
           </span>
-          <span className={styles.counter}>{handleCompleteCounter()}</span>
+          <span className={styles.counter}>{completeTasks}</span>
           <span
             id={FILTER_ALL}
             className={`${styles.text} ${
@@ -88,7 +92,7 @@ function Navbar() {
           >
             Всего:
           </span>
-          <span className={styles.counter}>{tasks.length}</span>
+          <span className={styles.counter}>{allTasks}</span>
         </div>
         <div>
           <span className={styles.clear}>Очистить:</span>

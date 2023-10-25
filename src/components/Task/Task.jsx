@@ -32,17 +32,14 @@ function Task({ task }) {
       setTitle(task.task);
       return;
     }
-
     if (title === task.task) {
       return;
     }
-
     if (isDublicateTask) {
       alert("Такое задание у вас уже есть!");
       setTitle(task.task);
       return;
     }
-
     dispatch(editTask({ taskId: task.id, text: title }));
   }
 
