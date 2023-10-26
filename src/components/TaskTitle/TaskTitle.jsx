@@ -8,25 +8,25 @@ function TaskTitle({
   onEnter,
   onBlur,
 }) {
-  if (isEdit) {
-    return (
-      <input
-        type="text"
-        name="edit"
-        className={styles.input}
-        value={title}
-        onChange={onChange}
-        onBlur={onBlur}
-        onKeyDown={onEnter}
-        autoFocus
-      />
-    );
-  }
-
   return (
-    <span className={styles.root} onDoubleClick={onDoubleClick}>
-      {title}
-    </span>
+    <>
+      {isEdit ? (
+        <input
+          type="text"
+          name="edit"
+          className={styles.input}
+          value={title}
+          onChange={onChange}
+          onBlur={onBlur}
+          onKeyDown={onEnter}
+          autoFocus
+        />
+      ) : (
+        <span className={styles.root} onDoubleClick={onDoubleClick}>
+          {title}
+        </span>
+      )}
+    </>
   );
 }
 
