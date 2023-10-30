@@ -7,12 +7,13 @@ import {
   uncheckAllTasks,
 } from "slices/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { selectFilters, selectTasks } from "selectors";
 import { FILTER_ACTIVE, FILTER_COMPLETE, FILTER_ALL } from "utils/filters";
 import styles from "./Navbar.module.scss";
 
 function Navbar() {
-  const filter = useSelector((state) => state.filters);
-  const tasks = useSelector((state) => state.tasks);
+  const filter = useSelector(selectFilters);
+  const tasks = useSelector(selectTasks);
   const dispatch = useDispatch();
 
   function handleFilters(e) {
