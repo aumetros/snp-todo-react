@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { selectTasks } from "selectors";
 import { toggleTask, deleteTask, editTask } from "slices/tasksSlice";
 import TaskTitle from "components/TaskTitle";
 import styles from "./Task.module.scss";
@@ -10,7 +11,7 @@ function Task({ task }) {
   const [title, setTitle] = React.useState(task.title);
   const dispatch = useDispatch();
 
-  const tasks = useSelector((state) => state.tasks);
+  const tasks = useSelector(selectTasks);
 
   const isDublicateTask = React.useMemo(() => {
     return tasks.some((task) => task.title === title);

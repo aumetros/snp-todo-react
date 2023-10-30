@@ -7,29 +7,26 @@ import {
   uncheckAllTasks,
 } from "slices/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  selectFilters,
+  selectTasks,
+  selectActiveTasks,
+  selectCompleteTasks,
+} from "selectors";
 import { FILTER_ACTIVE, FILTER_COMPLETE, FILTER_ALL } from "utils/filters";
 import styles from "./Navbar.module.scss";
 
 function Navbar() {
-  const filter = useSelector((state) => state.filters);
-  const tasks = useSelector((state) => state.tasks);
+  const filter = useSelector(selectFilters);
+  const tasks = useSelector(selectTasks);
+  const activeTasks = useSelector(selectActiveTasks);
+  const completeTasks = useSelector(selectCompleteTasks);
+
   const dispatch = useDispatch();
 
   function handleFilters(e) {
     dispatch(setFilter(e.target.id));
   }
-
-  const activeTasks = React.useMemo(
-    () => tasks.filter((task) => !task.complete).length,
-    [tasks]
-  );
-
-  const completeTasks = React.useMemo(
-    () => tasks.filter((task) => task.complete).length,
-    [tasks]
-  );
-
-  const allTasks = React.useMemo(() => tasks.length, [tasks]);
 
   function handleClearCompleteTasks() {
     dispatch(clearCompleteTasks());
@@ -47,18 +44,6 @@ function Navbar() {
     dispatch(uncheckAllTasks());
   }
 
-  function handleDisableCheckAll() {
-    return activeTasks > 0
-      ? `${styles.common} ${styles["common_type_check"]}`
-      : `${styles.common} ${styles["common_type_check"]} ${styles["common_type_disable"]}`;
-  }
-
-  function handleDisableUncheckAll() {
-    return completeTasks > 0
-      ? `${styles.common}`
-      : `${styles.common} ${styles["common_type_disable"]}`;
-  }
-
   return (
     <div className={styles.root}>
       <div className={styles.container}>
@@ -72,7 +57,7 @@ function Navbar() {
           >
             Активные:
           </span>
-          <span className={styles.counter}>{activeTasks}</span>
+          <span className={styles.counter}>{activeTasks.length}</span>
           <span
             id={FILTER_COMPLETE}
             className={`${styles.text} ${
@@ -82,7 +67,7 @@ function Navbar() {
           >
             Завершенные:
           </span>
-          <span className={styles.counter}>{completeTasks}</span>
+          <span className={styles.counter}>{completeTasks.length}</span>
           <span
             id={FILTER_ALL}
             className={`${styles.text} ${
@@ -92,7 +77,7 @@ function Navbar() {
           >
             Всего:
           </span>
-          <span className={styles.counter}>{allTasks}</span>
+          <span className={styles.counter}>{tasks.length}</span>
         </div>
         <div>
           <span className={styles.clear}>Очистить:</span>
@@ -112,11 +97,15 @@ function Navbar() {
       </div>
       <div className={styles["common-container"]}>
         <span
-          className={handleDisableCheckAll()}
+          className={`${styles.common} ${styles["common_type_check"]} ${
+            activeTasks.length === 0 && styles["common_type_disable"]
+          }`}
           onClick={handleCheckAllTasks}
         ></span>
         <span
-          className={handleDisableUncheckAll()}
+          className={`${styles.common} ${
+            completeTasks.length === 0 && styles["common_type_disable"]
+          }`}
           onClick={handleUncheckAllTasks}
         ></span>
       </div>

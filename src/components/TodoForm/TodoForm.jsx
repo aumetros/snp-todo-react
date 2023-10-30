@@ -1,12 +1,13 @@
 import React from "react";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
+import { selectTasks } from "selectors";
 import { addTask } from "slices/tasksSlice";
 import styles from "./TodoForm.module.scss";
 
 function TodoForm({ main }) {
   const [inputValue, setInputValue] = React.useState("");
-  const tasks = useSelector((state) => state.tasks);
+  const tasks = useSelector(selectTasks);
   const dispatch = useDispatch();
 
   const isDublicateTask = React.useMemo(() => {
