@@ -44,18 +44,6 @@ function Navbar() {
     dispatch(uncheckAllTasks());
   }
 
-  function handleDisableCheckAll() {
-    return activeTasks > 0
-      ? `${styles.common} ${styles["common_type_check"]}`
-      : `${styles.common} ${styles["common_type_check"]} ${styles["common_type_disable"]}`;
-  }
-
-  function handleDisableUncheckAll() {
-    return completeTasks > 0
-      ? `${styles.common}`
-      : `${styles.common} ${styles["common_type_disable"]}`;
-  }
-
   return (
     <div className={styles.root}>
       <div className={styles.container}>
@@ -109,11 +97,15 @@ function Navbar() {
       </div>
       <div className={styles["common-container"]}>
         <span
-          className={handleDisableCheckAll()}
+          className={`${styles.common} ${styles["common_type_check"]} ${
+            activeTasks.length === 0 && styles["common_type_disable"]
+          }`}
           onClick={handleCheckAllTasks}
         ></span>
         <span
-          className={handleDisableUncheckAll()}
+          className={`${styles.common} ${
+            completeTasks.length === 0 && styles["common_type_disable"]
+          }`}
           onClick={handleUncheckAllTasks}
         ></span>
       </div>
