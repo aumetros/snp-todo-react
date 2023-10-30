@@ -1,39 +1,37 @@
 import Task from "components/Task";
 import { useSelector } from "react-redux";
-import { selectTasks, selectFilters } from "selectors";
+import {
+  selectTasks,
+  selectFilters,
+  selectActiveTasks,
+  selectCompleteTasks,
+} from "selectors";
 import React from "react";
 import styles from "./TodoList.module.scss";
 
 function TodoList() {
-  const [render, setRender] = React.useState([]);
-  const tasks = useSelector(selectTasks);
   const filter = useSelector(selectFilters);
+  const tasks = useSelector(selectTasks);
+  const activeTasks = useSelector(selectActiveTasks);
+  const completeTasks = useSelector(selectCompleteTasks);
 
-  const renderList = React.useMemo(
-    () =>
-      render.map((task) => {
-        return <Task key={task.id} task={task} />;
-      }),
-    [render]
-  );
-
-  React.useEffect(() => {
+  const renderList = React.useMemo(() => {
     if (filter.status === "all") {
-      setRender(tasks);
+      return tasks;
     } else if (filter.status === "complete") {
-      const completeTasks = tasks.filter((task) => task.complete);
-      setRender(completeTasks);
+      return completeTasks;
     } else if (filter.status === "active") {
-      const activeTasks = tasks.filter((task) => !task.complete);
-      setRender(activeTasks);
+      return activeTasks;
     }
-  }, [filter, tasks]);
+  }, [filter, tasks, activeTasks, completeTasks]);
 
   return (
     <ul className={styles.root}>
-      {renderList}
+      {renderList.map((task) => {
+        return <Task key={task.id} task={task} />;
+      })}
     </ul>
-  )
+  );
 }
 
 export default TodoList;
