@@ -1,12 +1,13 @@
 import Task from "components/Task";
 import { useSelector } from "react-redux";
+import { selectTasks, selectFilters } from "selectors";
 import React from "react";
 import styles from "./TodoList.module.scss";
 
 function TodoList() {
   const [render, setRender] = React.useState([]);
-  const tasks = useSelector((state) => state.tasks);
-  const filter = useSelector((state) => state.filters);
+  const tasks = useSelector(selectTasks);
+  const filter = useSelector(selectFilters);
 
   const renderList = React.useMemo(
     () =>
